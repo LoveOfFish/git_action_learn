@@ -13,5 +13,5 @@ jobs:
         run: sudo apt install -y libcjson-dev   # 使用操作系统的shell命令
       - uses: actions/checkout@v3               # uses表示使用某一种操作，操作是一种可重复使用的代码单位。actions/checkout@v3由github官方提供的操作，作用是拉取当前仓库的代码到执行作业的机器中
       - run: make
-      - run: ./readFromCjson
+      - run: ./readfromjson
       
