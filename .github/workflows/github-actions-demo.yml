@@ -10,10 +10,3 @@ jobs:
     steps:                          # 为当前作业设置一系列的任务
       - run: apt install -y cjson   # 使用操作系统的shell命令
       - shell: bash                 # 指定shell的类型
-  build_readfromcjson:
-    needs: install_cjson            # 必须执行完install_cjson之后再执行当前作业，即当前作业依赖于“install_cjson”作业
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3   # uses表示使用某一种操作，操作是一种可重复使用的代码单位。actions/checkout@v3由github官方提供的操作，作用是拉取当前仓库的代码到执行作业的机器中
-      - run: make
-      - run: ./readfromjson
