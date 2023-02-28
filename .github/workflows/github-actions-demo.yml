@@ -5,16 +5,13 @@ on:                                                                   # 触发�
     branches:
       - main
 jobs:
-  install_cjson:                    # 第一个作业的标记，这个用在当前文件中
-    name: install cJSON             # 设置作业的名称，这个显示在页面中
-    runs-on: ubuntu-latest          # 在指定的操作系统上运行作业
-    steps:                          # 为当前作业设置一系列的任务
-      - run: sudo apt install -y libcjson-dev   # 使用操作系统的shell命令
-  build_readfromcjson:
-    name: build readFromCjson
-    needs: install_cjson            # 必须执行完install_cjson之后再执行当前作业，即当前作业依赖于“install_cjson”作业
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3   # uses表示使用某一种操作，操作是一种可重复使用的代码单位。actions/checkout@v3由github官方提供的操作，作用是拉取当前仓库的代码到执行作业的机器中
+  build_readfromcjson:                          # 第一个作业的标记，这个用在当前文件中
+    name: build readFromCjson                   # 作业的名称，这个会显示在页面上
+    runs-on: ubuntu-latest                      # 在指定的操作系统上运行作业
+    steps:                                      # 为当前作业设置一系列的任务
+      - name: install cJSON                     # 设置作业的名称，这个显示在页面中                   
+        run: sudo apt install -y libcjson-dev   # 使用操作系统的shell命令
+      - uses: actions/checkout@v3               # uses表示使用某一种操作，操作是一种可重复使用的代码单位。actions/checkout@v3由github官方提供的操作，作用是拉取当前仓库的代码到执行作业的机器中
       - run: make
       - run: ./readFromCjson
+      
