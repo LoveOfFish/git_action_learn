@@ -4,9 +4,9 @@ on:                                                                   # 触发�
   push:
     branches:
       - main
+
 jobs:
   install_cjson:                    # 第一个作业的标记，这个用在当前文件中
     runs-on: ubuntu-latest          # 在指定的操作系统上运行作业
     steps:                          # 为当前作业设置一系列的任务
       - run: apt install -y cjson   # 使用操作系统的shell命令
-      - shell: bash                 # 指定shell的类型
