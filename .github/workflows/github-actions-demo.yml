@@ -1,16 +1,21 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
+name: learn-github-actions                                            # 工作流的名称
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀       # 每一次执行工作流的任务名称
+on:                                                                   # 触发工作流的事件，目前设置为提交到main分支的操作将会触发
   push:
     branches:
       - main
 jobs:
-  check-bats-version:
+  install_cjson:                    # 第一个作业的标记，这个用在当前文件中
+    name: install cJSON             # 设置作业的名称，这个显示在页面中
+    runs-on: ubuntu-latest          # 在指定的操作系统上运行作业
+    steps:                          # 为当前作业设置一系列的任务
+      - run: apt install -y cjson   # 使用操作系统的shell命令
+      - shell: bash                 # 指定shell的类型
+  build_readfromcjson:
+    name: build readFromCjson
+    needs: install_cjson            # 必须执行完install_cjson之后再执行当前作业，即当前作业依赖于“install_cjson”作业
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - uses: actions/checkout@v3   # uses表示使用某一种操作，操作是一种可重复使用的代码单位。actions/checkout@v3由github官方提供的操作，作用是拉取当前仓库的代码到执行作业的机器中
+      - run: make
+      - run: ./readFromCjson
